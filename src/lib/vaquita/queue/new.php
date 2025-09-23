@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-class vaquita_curl_result
+require_once VINTI_DIR . '/fi_lst.php';
+
+function vaquite_queue_new(array $config): array
 {
-  public int $status_code = 0;
-  public string $payload = '';
-  public string $error = '';
+  return vinti_fi_lst($config['vinti_queue_dir'] . '/new');
 }

@@ -27,9 +27,9 @@ function vaquita_curl_post(string $url, string $event, $options = []): vaquita_c
 
   $result->payload = curl_exec($ch) ?: '';
 
-  $result->status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE) ?: -1;
-  if ($errno = curl_errno($ch)) {
-    $result->payload = sprintf('cURL error (%d) %s' , $errno, curl_strerror($errno));
+  $result->status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE) ?: 0;
+  if (($errno = curl_errno($ch)) > 0) {
+    $result->error = sprintf('cURL error (%d) %s' , $errno, curl_strerror($errno) ?? '');
   }
   curl_close($ch);
 

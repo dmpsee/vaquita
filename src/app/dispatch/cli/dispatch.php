@@ -1,6 +1,6 @@
 <?php
 
-// DMPsee - https://dmpsee.org
+// Vaquita - https://dmpsee.org
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Copyright Digital Curation Centre (UK) and contributors
 
@@ -18,14 +18,11 @@ define('SESTO_MEM_START', memory_get_usage(true));
 $sys_dir = realpath(__DIR__ . '/../../..');
 
 require $sys_dir . '/lib/sesto/initme.php';
-require SESTO_DIR . '/app/exec.php';
+require SESTO_DIR . '/app/run.php';
 
-list($exit_code, $error) = sesto_app_exec(
-  $sys_dir,
-  (new sesto_scd('dmpseee_dispatch_engine', [], $sys_dir . '/app/dispatch/lib/dmpsee/engine.php')),
-  [],
-  'dispatch',
-  true);
+list($exit_code, $error) = sesto_app_run(
+  (new sesto_scd('dmpseee_dispatch_engine', [], $sys_dir . '/app/dispatch/lib/dispatch/engine.php')),
+  ['sys_dir' => $sys_dir, 'app_name' => 'dispatch']);
 
 if ($error !== '') {
   echo $error;

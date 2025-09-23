@@ -8,5 +8,6 @@ declare(strict_types=1);
 
 function vinti_datetime(): string
 {
-  return date('YmdHis') . sprintf('%06d', (int) (microtime(true) * 1000) % 1000000);
+  $now = microtime(true);
+  return date('YmdHis', (int) $now) . sprintf('%06d', ($now - floor($now)) * 1e6);
 }

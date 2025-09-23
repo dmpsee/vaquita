@@ -6,11 +6,9 @@
 
 declare(strict_types=1);
 
-require_once VINTI_DIR . '/client.php';
-require_once VINTI_DIR . '/exec.php';
+require_once VINTI_DIR . '/fi_lst.php';
 
-function vaquite_event_exists(vinti_client $client, string $event_name): array
+function vaquita_event_subscribers(array $config, string $event): array
 {
-  $result = vinti_exec($client, vinti_fi_lst('event/' . $event_name . '/subscriber'));
-  return $result->files;
+  return vinti_fi_lst($config['vinti_event_dir'] . '/' . $event . '/sub');
 }
