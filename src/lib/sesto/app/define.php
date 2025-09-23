@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-function sesto_app_define(string $sys_dir, string $app_name = '', bool $as_module = false): string
+function sesto_app_define(string $sys_dir, string $app_name = ''): string
 {
   if (!is_dir($sys_dir) || !is_readable($sys_dir)) {
     $error = sprintf('%s is not a directory or not readable', $sys_dir);
@@ -31,7 +31,7 @@ function sesto_app_define(string $sys_dir, string $app_name = '', bool $as_modul
     /* define app constants */
     define('SESTO_APP_NAME', strtolower($app_name));
 
-    if ($as_module) {
+    if ($app_name !== '') {
       $app_dir = SESTO_SYS_APP_DIR . '/' . $app_name;
     } else {
       $app_dir = $sys_dir;

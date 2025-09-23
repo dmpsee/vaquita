@@ -15,23 +15,24 @@ require_once SESTO_DIR . '/util/exit.php';
 require_once SESTO_DIR . '/util/registry.php';
 require_once SESTO_DIR . '/error/handler.php';
 require_once SESTO_DIR . '/util/registry.php';
+require_once SESTO_DIR . '/scd/scd.php';
+require_once SESTO_DIR . '/scd/call.php';
 
 function sesto_app_run(
-  string $sys_dir,
-  string|array $engine,
+  sesto_scd $scd,
   array $args = [],
-  string $app_name = '',
-  bool $as_module = false,
-  string &$error = ''
-): int
+): array
 {
-
   $exit_code = 0;
   $error = '';
   $error_handler = null;
+
+  /* normalise args */
+  $args['sys_dir'] = (string) ($args['sys_dir'] ?? true);
+  $args['app_name'] = (string) ($args['app_name'] ?? true);
   try {
     /* define constants */
-    $define_error = sesto_app_define($sys_dir, $app_name, $as_module);
+    $define_error = sesto_app_define($args['sys_dir'], $args['app_name']);
     if ('' !== $define_error) {
       throw new exception($define_error);
     }
@@ -81,11 +82,7 @@ function sesto_app_run(
         $error_handler = 'sesto_app_error_web';
       }
     }
-    if (!is_callable($engine)) {
-      throw new exception('Engine not callable');
-    } else {
-      $engine($args);
-    }
+    sesto_scd_call($scd, $config, $args);
   } catch (sesto_exit $throwable) {
     /* do nothing */
   } catch (throwable $throwable) {
@@ -100,5 +97,5 @@ function sesto_app_run(
     $exit_code = 1;
     $error = $throwable->getmessage();
   }
-  return $exit_code;
+  return [$exit_code, $error];
 }

@@ -1,6 +1,6 @@
 <?php
 
-// DMPsee - https://dmpsee.org
+// Vaquita - https://dmpsee.org
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Copyright Digital Curation Centre (UK) and contributors
 
@@ -18,12 +18,12 @@ define('SESTO_MEM_START', memory_get_usage(true));
 $sys_dir = realpath(__DIR__ . '/../../..');
 
 require $sys_dir . '/lib/sesto/initme.php';
-require $sys_dir . '/lib/dmpsee/initme.php';
-require DMPSEE_DIR . '/api/engine.php';
 require SESTO_DIR . '/app/run.php';
 
 $error = '';
-sesto_app_run($sys_dir, 'dmpseee_api_engine', [], 'api', true, $error);
+sesto_app_run(
+  (new sesto_scd('vaquita_api_engine', [], $sys_dir . '/lib/vaquita/api/engine.php')),
+  ['sys_dir' => $sys_dir, 'app_name' => 'api']);
 
 if ($error !== '') {
   echo $error;
