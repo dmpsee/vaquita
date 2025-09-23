@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 require_once VINTI_DIR . '/fi_get.php';
 
-function vaquita_sub_url_read(array $config, string $id): array
+function vaquita_url_read(array $config, string $id): array
 {
-  return vinti_fi_get($config['vinti_url_dir'], $id);
+  return vinti_fi_get($config['vinti_user_dir'] . '/'. $id, 'url');
 }

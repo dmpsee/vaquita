@@ -30,7 +30,7 @@ function vaquita_api_engine(array $config, array $args = []): void
   $app->args = $args;
 
   $auth_credential = ($_SERVER['HTTP_AC'] ?? '');
-  $auth_credential = 'adm-1:key-adm-1'; // admin
+  // $auth_credential = 'adm-1:key-adm-1'; // admin
   // $auth_credential = 'sub-1:key-sub-1'; // subscriber
   $ac_parts = explode(':', $auth_credential, 2);
   $api_id = $ac_parts[0] ?? '';
@@ -42,7 +42,7 @@ function vaquita_api_engine(array $config, array $args = []): void
     $valid_cmd = [
       'adm' => ['usw', 'usd', 'evw', 'evd', 'eva', 'evi'],
       'pub' => ['evp'],
-      'sub' => ['url', 'evs', 'evu']
+      'sub' => ['urr', 'urw', 'evs', 'evu']
     ];
     if ($app->url->filename !== 'post') {
       $app->response->code = SESTO_HTTP_NOT_FOUND;
@@ -58,7 +58,7 @@ function vaquita_api_engine(array $config, array $args = []): void
         $app->request = new vaquita_api_request();
         $app->request->cmd = $request[0] ?? '';
         $app->request->data = $request[1] ?? '';
-        if ($app->request->data === '') {
+        if ($app->request->data === '' && $app->request->cmd !== 'urr') {
           $app->response->code = SESTO_HTTP_BAD_REQUEST;
           $app->response->message = 'invalid data element';
         } else {
@@ -70,14 +70,16 @@ function vaquita_api_engine(array $config, array $args = []): void
             $user = json_decode($user_data, true);
             if (!is_array($user)) {
               $app->response->code = SESTO_HTTP_INTERNAL_SERVER_ERROR;
+              $app->response->message = 'user not array';
             } else {
               $app->user = new vaquita_user();
               $app->user->id = $user['id'] ?? '';
               $app->user->key = $user['key'] ?? '';
               $app->user->role = $user['role'] ?? '';
-
+              // sesto_d($app);
               if ($app->user->key !== $api_key) {
                 $app->response->code = SESTO_HTTP_UNAUTHORIZED;
+                $app->response->message = 'invalid key';
               } else {
                 /* check valid command */
                 if (!in_array($app->request->cmd, $valid_cmd[$app->user->role])) {
