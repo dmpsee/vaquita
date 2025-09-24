@@ -1,4 +1,3 @@
 src/app/api/conf/app.ext.php
-src/conf/vinti.php
-src/var/storage
 src/app/dispatch/conf/app.ext.php
+src/var/storage
