@@ -14,6 +14,7 @@ const SESTO_HTTP_FORBIDDEN = 403;
 const SESTO_HTTP_NOT_FOUND = 404;
 const SESTO_HTTP_METHOD_NOT_ALLOWED = 405;
 const SESTO_HTTP_GONE = 410;
+const SESTO_HTTP_UNPROCESSABLE_CONTENT = 422;
 const SESTO_HTTP_INTERNAL_SERVER_ERROR = 500;
 
 function sesto_http_status_codes(): array
@@ -27,6 +28,7 @@ function sesto_http_status_codes(): array
     SESTO_HTTP_NOT_FOUND => 'Not Found',
     SESTO_HTTP_METHOD_NOT_ALLOWED => 'Method Not Allowed',
     SESTO_HTTP_GONE => 'Gone',
+    SESTO_HTTP_UNPROCESSABLE_CONTENT => 'Unprocessable Content',
     SESTO_HTTP_INTERNAL_SERVER_ERROR => 'Internal Server Error',
   ];
 }
