@@ -33,7 +33,7 @@ function sesto_app_run(
   try {
     /* define constants */
     $define_error = sesto_app_define($args['sys_dir'], $args['app_name']);
-    if ('' !== $define_error) {
+    if ($define_error !== '') {
       throw new exception($define_error);
     }
 
@@ -69,8 +69,6 @@ function sesto_app_run(
       if (null !== $error_handler && !is_callable($error_handler)) {
         throw new exception('Error handler not callale');
       }
-    // } else {
-    //   $config = [];
     }
 
     if (null === $error_handler) {

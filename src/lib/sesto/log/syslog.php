@@ -6,16 +6,12 @@
 
 declare(strict_types=1);
 
-function sesto_syslog(string $message, int $priority = LOG_INFO): int
+require_once SESTO_DIR . '/log/level.php';
+
+function sesto_syslog(string $message, int $priority = LOG_INFO): bool
 {
-  static $level = LOG_INFO;
-  if ($message === '__set') {
-    $level = $priority;
-    $result = $level;
-  } else if ($message === '__get') {
-    $result = $level;
-  } else if ($priority <= $level) {
-    $result = (int) syslog($priority, $message);
+  if ($priority > sesto_log_level()) {
+    return true;
   }
-  return $result;
+  return syslog($priority, $message);
 }
