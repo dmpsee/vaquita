@@ -1,0 +1,27 @@
+{
+  "maDMP": {
+    "dmp_id": {
+      "type": "url",
+      "identifier": "https://example.org/dmp/12345"
+    },
+    "created": "2025-09-24T22:55:58Z",
+    "dataset": [
+      {
+        "title": "Sample Dataset",
+        "description": "A dataset containing sample data for testing purposes.",
+        "dataset_id": {
+          "type": "doi",
+          "identifier": "10.1234/example-dataset"
+        },
+        "distribution": [
+          {
+            "access_url": "https://example.org/dataset.csv",
+            "format": "text/csv",
+            "byte_size": 102400,
+            "data_access": "open"
+          }
+        ]
+      }
+    ]
+  }
+}
