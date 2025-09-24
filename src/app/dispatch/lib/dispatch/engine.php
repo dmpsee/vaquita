@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-use function sesto_log_file as slog;
+use function sesto_log_std as slog;
 
-require_once SESTO_DIR . '/log/file.php';
+require_once SESTO_DIR . '/log/std.php';
 require_once SESTO_DIR . '/http/status_codes.php';
 require_once VAQUITA_DIR . '/queue/new.php';
 require_once VAQUITA_DIR . '/queue/active.php';
@@ -21,9 +21,6 @@ require_once VAQUITA_DIR . '/curl/post.php';
 function dmpseee_dispatch_engine(array $config, array $args = []): void
 {
   /* log */
-  sesto_log_filedata(
-    $config['log_filename'] ?? '/var/log/vaquita/dispatch.log',
-    $config['log_flags'] ?? FILE_APPEND | LOCK_EX);
   sesto_log_level($config['log_priority'] ?? LOG_INFO);
 
   slog('dispatch_start');
