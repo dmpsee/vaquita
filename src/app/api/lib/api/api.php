@@ -7,10 +7,10 @@
 declare(strict_types=1);
 
 require_once SESTO_DIR . '/url/url.php';
-require_once VAQUITA_DIR . '/api/request.php';
-require_once VAQUITA_DIR . '/api/response.php';
+require_once VAQUITA_API_DIR . '/request.php';
+require_once VAQUITA_API_DIR . '/response.php';
 
-final class vaquita_api_app
+final class vaquita_api
 {
   public array $config = [];
   public array $args = [];

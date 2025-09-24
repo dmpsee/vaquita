@@ -9,16 +9,16 @@ declare(strict_types=1);
 require_once SESTO_DIR . '/url/init.php';
 require_once SESTO_DIR . '/scd/call.php';
 require_once SESTO_DIR . '/http/header_json.php';
-
-require_once VAQUITA_DIR . '/api/app.php';
+require_once SESTO_DIR . '/http/post.php';
+require_once VAQUITA_API_DIR . '/api.php';
+require_once VAQUITA_API_DIR . '/response_send.php';
 require_once VAQUITA_DIR . '/user/user.php';
 require_once VAQUITA_DIR . '/user/read.php';
-require_once VAQUITA_DIR . '/api/response_send.php';
 
 function vaquita_api_engine(array $config, array $args = []): void
 {
   /* define the $app array */
-  $app = new vaquita_api_app();
+  $app = new vaquita_api();
   $app->config = $config;
   $app->config['vinti_user_dir'] = $app->config['vinti_dir'] . '/user';
   $app->config['vinti_token_dir'] = $app->config['vinti_dir'] . '/key';
@@ -38,13 +38,17 @@ function vaquita_api_engine(array $config, array $args = []): void
   $app->response = new vaquita_api_response();
 
   $app->url = sesto_url_init();
+
+  $valid_cmd = [
+    'adm' => ['usw', 'usd', 'evw', 'evd', 'eva', 'evi'],
+    'pub' => ['evp'],
+    'sub' => ['urr', 'urw', 'evs', 'evu']
+  ];
+
   try {
-    $valid_cmd = [
-      'adm' => ['usw', 'usd', 'evw', 'evd', 'eva', 'evi'],
-      'pub' => ['evp'],
-      'sub' => ['urr', 'urw', 'evs', 'evu']
-    ];
-    if ($app->url->filename !== 'post') {
+    if (!sesto_http_post()) {
+      $app->response->code = SESTO_HTTP_BAD_REQUEST;
+    } elseif ($app->url->filename !== 'post') {
       $app->response->code = SESTO_HTTP_NOT_FOUND;
     } else {
       /* request */
@@ -106,6 +110,6 @@ function vaquita_api_engine(array $config, array $args = []): void
     $app->response->code = SESTO_HTTP_INTERNAL_SERVER_ERROR;
   }
   /* response */
-  send_reponse($app->response);
+  reponse_send($app->response);
 
 }

@@ -9,7 +9,7 @@ declare(strict_types=1);
 require_once VAQUITA_DIR . '/event/exists.php';
 require_once VAQUITA_DIR . '/event/subscribe.php';
 
-function vaquita_exec(vaquita_api_app $app)
+function vaquita_exec(vaquita_api $app)
 {
   if (!vaquita_event_exists($app->config, $app->request->data)) {
     $app->response->code = SESTO_HTTP_BAD_REQUEST;

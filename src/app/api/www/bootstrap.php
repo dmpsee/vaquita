@@ -22,7 +22,7 @@ require SESTO_DIR . '/app/run.php';
 
 $error = '';
 sesto_app_run(
-  (new sesto_scd('vaquita_api_engine', [], $sys_dir . '/lib/vaquita/api/engine.php')),
+  (new sesto_scd('vaquita_api_engine', [], $sys_dir . '/app/api/lib/api/engine.php')),
   ['sys_dir' => $sys_dir, 'app_name' => 'api']);
 
 if ($error !== '') {

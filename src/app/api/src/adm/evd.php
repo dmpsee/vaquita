@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 require_once VAQUITA_DIR . '/event/delete.php';
 
-function vaquita_exec(vaquita_api_app $app)
+function vaquita_exec(vaquita_api $app)
 {
   list($filename, $error) = vaquita_event_delete($app->config, $app->request->data);
   if ($error !== '') {

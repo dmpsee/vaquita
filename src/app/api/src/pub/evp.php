@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 require_once VAQUITA_DIR . '/queue/insert.php';
 
-function vaquita_exec(vaquita_api_app $app)
+function vaquita_exec(vaquita_api $app)
 {
   if ($app->user->role !== 'pub') {
     $app->response->code = SESTO_HTTP_UNAUTHORIZED;

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 require_once VAQUITA_DIR . '/user/delete.php';
 
-function vaquita_exec(vaquita_api_app $app)
+function vaquita_exec(vaquita_api $app)
 {
   list($filename, $error) = vaquita_user_delete($app->config, $app->request->data);
   if ($error !== '') {

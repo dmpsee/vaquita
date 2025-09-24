@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 require_once VAQUITA_DIR . '/url/write.php';
 
-function vaquita_exec(vaquita_api_app $app)
+function vaquita_exec(vaquita_api $app)
 {
   // die('123');
   list($filename, $error) = vaquita_url_write($app->config, $app->user->id, $app->request->data);

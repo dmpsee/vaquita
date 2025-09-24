@@ -4,24 +4,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Copyright Digital Curation Centre (UK) and contributors
 
-$config = [
-  'sesto_php_ini_set' => [
-    'track_errors' => 'true',
-    'display_startup_errors' => 'true'
-  ],
-  'sesto_require' => [
-    SESTO_SYS_LIB_DIR . '/vaquita/initme.php',
-    SESTO_SYS_LIB_DIR . '/vinti/initme.php'
-  ],
-  'sesto_error_strict' => true,
-  'sesto_resource' => [
-    'vinti' => SESTO_SYS_RES_DIR . '/vinti.php',
-  ],
-  'vinti_dir' => SESTO_SYS_VAR_DIR . '/storage',
-//  'sesto_require' => [
-//    SESTO_SYS_LIB_DIR . '/satao/initme.php'
-//  ]
-];
+include SESTO_SYS_CONF_DIR . '/sys.php';
+
+$config['sesto_require'][] = SESTO_APP_LIB_DIR . '/api/initme.php';
 
 $extended_file = __DIR__ . '/app.ext.php';
 if (is_file($extended_file) && is_readable($extended_file)) {

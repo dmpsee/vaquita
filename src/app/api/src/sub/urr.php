@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 require_once VAQUITA_DIR . '/url/read.php';
 
-function vaquita_exec(vaquita_api_app $app)
+function vaquita_exec(vaquita_api $app)
 {
   list($url, $error) = vaquita_url_read($app->config, $app->user->id);
   if ($error !== '') {

@@ -6,10 +6,10 @@
 
 declare(strict_types=1);
 
-require_once VAQUITA_DIR . '/api/response.php';
+require_once VAQUITA_API_DIR . '/response.php';
 require_once SESTO_DIR . '/http/status_codes.php';
 
-function send_reponse(vaquita_api_response $response)
+function reponse_send(vaquita_api_response $response)
 {
   foreach (sesto_http_header_json() as $header) {
     header($header);

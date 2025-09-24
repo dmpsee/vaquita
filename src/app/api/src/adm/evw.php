@@ -10,7 +10,7 @@ require_once SESTO_DIR . '/app/resource.php';
 
 require_once VAQUITA_DIR . '/event/write.php';
 
-function vaquita_exec(vaquita_api_app $app)
+function vaquita_exec(vaquita_api $app)
 {
   list($filename, $error) = vaquita_event_write($app->config, $app->request->data);
   if ($error !== '') {
