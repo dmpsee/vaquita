@@ -12,14 +12,14 @@ require SESTO_DIR . '/log/label.php';
 
 function sesto_log_file(string $message, int $priority = LOG_INFO, array $context = []): bool
 {
+  list($logfile, $flags, $log_priority_label) = sesto_log_filedata();
   if ($priority > sesto_log_level()) {
     return true;
   }
 
-  $log_array = [gmdate('c'), sesto_log_label($priority), $message];
-  if (!empty($context)) {
-    $log_array[] = $context;
-  }
+  $log_array = array_merge(
+    [gmdate('c'), $log_priority_label ? sesto_log_label($priority) : $priority, $message],
+    $context);
 
   $log_string = json_encode($log_array, JSON_UNESCAPED_SLASHES);
 
@@ -27,7 +27,6 @@ function sesto_log_file(string $message, int $priority = LOG_INFO, array $contex
     file_put_contents('php://stderr', "ERROR: Failed to encode log message\n", FILE_APPEND);
     return false;
   }
-  list($logfile, $flags) = sesto_log_filedata();
   if (file_put_contents($logfile, $log_string . PHP_EOL, $flags) === false) {
     file_put_contents('php://stderr', "ERROR: Failed to write log to stdout.\n", FILE_APPEND);
     return false;

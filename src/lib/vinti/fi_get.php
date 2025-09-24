@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 function vinti_fi_get(string $dir, string $name): array
 {
-  $data = file_get_contents($dir . DIRECTORY_SEPARATOR . $name);
+  $data = @file_get_contents($dir . DIRECTORY_SEPARATOR . $name);
 
   if (is_string($data)) {
     return [$data, ""];
