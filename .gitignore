@@ -1,3 +1,5 @@
 src/app/api/conf/app.ext.php
 src/app/dispatch/conf/app.ext.php
 src/var/storage
+/nbproject/private/
+/src/app/cleanup/conf/app.ext.php
